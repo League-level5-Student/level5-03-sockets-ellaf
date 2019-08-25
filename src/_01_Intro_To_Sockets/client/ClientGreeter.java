@@ -9,22 +9,23 @@ import java.io.*;
 
 public class ClientGreeter {
 
+	
    public static void main(String [] args) {
-	   Server serv = new Server(4385);
+	   new ClientGreeter();
+   }
+   
+   public ClientGreeter() {
+	   
 	  
 	  //1. Create a String for the ip address of the server. 
 	  // If you don't know how to find a computer's ip address, ask about ifconfig on linux/mac and ipconfig on windows.
-	   String ip = serv.getIPAddress();
-	/*   try {
-		ip = InetAddress.getLocalHost().getHostAddress();
-	} catch (UnknownHostException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		System.out.println("Can't find the ip address!");
-	};*/
+	   
+	   String ip = "localhost";
+	   
       //2. Create an integer for the server's port number
-		int port = serv.getPort();
-		Client cli = new Client(ip, port);
+	   
+		int port = 4385;
+		
       //3. Surround steps 4-9 in a try-catch block that catches any IOExceptions.
     try {
     	 //4. Create an object of the Socket class. When initializing the object, pass in the ip address and the port number
@@ -36,8 +37,10 @@ public class ClientGreeter {
          //7. Create a DataInputStream object. When initializing it, use the Server object you created in step 4 to call the getInputStream() method.
          DataInputStream dis = new DataInputStream(socket.getInputStream());
          //8. Use the DataInputStream object to print a message from the server using the readUTF() method.
-         dis.readUTF();
+         System.out.println(dis.readUTF());
          //9. Close the client's server object (???)
+         System.out.println("closing");
+        socket.close();
     }catch (IOException e) {
     	e.printStackTrace();
     }
