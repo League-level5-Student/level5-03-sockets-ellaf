@@ -1,12 +1,13 @@
 package _02_Chat_Application;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
-public class CAClient {
+public class CAClient{
 	private String ip;
 	private int port;
 
@@ -38,12 +39,27 @@ public class CAClient {
 		
 		while (connection.isConnected()) {
 			try {
-				JOptionPane.showMessageDialog(null, is.readObject());
+				//JOptionPane.showMessageDialog(null, is.readObject());
 				System.out.println(is.readObject());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
+	
 	}
+	
+	public void sendChat(String chat) {
+		try {
+			if (os != null) {
+				os.writeObject(chat);
+				os.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+		
+		
 }

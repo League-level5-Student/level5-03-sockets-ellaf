@@ -37,7 +37,7 @@ public void start(){
 
 		while (connection.isConnected()) {
 			try {
-				JOptionPane.showMessageDialog(null, is.readObject());
+			//	JOptionPane.showMessageDialog(null, is.readObject());
 				System.out.println(is.readObject());
 			}catch(EOFException e) {
 				JOptionPane.showMessageDialog(null, "Connection Lost");
@@ -62,13 +62,15 @@ public int getPort() {
 	return port;
 }
 
-public void sendChat() {
-try {
-	os.writeUTF("Hey!");
-} catch (IOException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
+public void sendChat(String chat) {
+	try {
+		if (os != null) {
+			os.writeObject(chat);
+			os.flush();
+		}
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
 }
 
 
